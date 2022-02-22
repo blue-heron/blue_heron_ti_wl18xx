@@ -21,7 +21,7 @@ defmodule BlueHeronTiWl18xx.MixProject do
   # Run "mix help deps" to learn about dependencies.
   defp deps do
     [
-      {:blue_heron_transport_uart, path: "../blue_heron_transport_uart"},
+      {:blue_heron_transport_uart, github: "blue-heron/blue_heron_transport_uart", branch: "wilink8"},
       {:circuits_gpio, "~> 1.0"}
     ]
   end
