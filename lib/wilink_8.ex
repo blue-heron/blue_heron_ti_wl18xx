@@ -3,7 +3,14 @@ defmodule BlueHeron.Wilink8 do
 
   def init(path, gpio_bt_en, tty) do
     bts = BlueHeron.BTS.decode_file!(path)
-    Circuits.UART.find_pids() |> Enum.each(fn {pid, _} -> Circuits.UART.stop(pid) end)
+
+    Circuits.UART.find_pids()
+    |> Enum.each(fn {pid, tty_name} ->
+      if tty_name == tty do
+        Circuits.UART.stop(pid)
+      end
+    end)
+
     {:ok, pid} = Circuits.UART.start_link()
     {:ok, pin_ref} = Circuits.GPIO.open(gpio_bt_en, :output)
     Circuits.GPIO.write(pin_ref, 0)
